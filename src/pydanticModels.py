@@ -6,6 +6,9 @@ class DefaultResponse(BaseModel):
 class ScheduleIdQuery(BaseModel):
     id: int    
 
+class ScheduleSearchQuery(BaseModel):
+    search: str        
+
 class ScheduleItem(BaseModel):
     id: int
     title: str

@@ -48,6 +48,36 @@ def get_schedule():
             status=500,
             mimetype="application/json"
         )
+@app.get(
+    "/search_schedule",
+    tags=[schedule_tag],
+    responses={
+        200: pydanticModels.ScheduleListResponse,
+        404: pydanticModels.DefaultResponse,
+        500: pydanticModels.DefaultResponse
+    }
+)    
+def search_schedule(query: pydanticModels.ScheduleSearchQuery):
+    """Retorna todos os agendamentos cadastrados."""
+    try:
+        schedules = db.search_schedule(query.search)
+        if not schedules:
+            return Response(
+                json.dumps({"message": "Nenhum agendamento encontrado"}, ensure_ascii=False),
+                status=404,
+                mimetype="application/json"
+            )
+        return Response(
+            json.dumps(schedules, ensure_ascii=False),
+            status=200,
+            mimetype="application/json"
+        )
+    except Exception as e:
+        return Response(
+            json.dumps({"message": f"Erro ao buscar agendamentos: {str(e)}"}, ensure_ascii=False),
+            status=500,
+            mimetype="application/json"
+        )
 
 
 @app.post(

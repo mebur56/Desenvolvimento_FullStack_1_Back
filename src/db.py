@@ -39,6 +39,27 @@ def get_all_schedules():
         
     return schedules
 
+def search_schedule(search: str):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT * FROM schedule where Title like ?
+    """, (search,))
+    rows = cursor.fetchall() 
+    conn.close()  
+
+    schedules = []
+    for row in rows:
+        schedules.append({
+            "id": row[0],
+            "title": row[1],
+            "date": row[2],
+            "description": row[3]
+        })
+        
+    return schedules
+
 def create_schedule(schedule):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
