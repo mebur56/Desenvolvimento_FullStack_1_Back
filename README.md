@@ -10,7 +10,7 @@ Navegue até a pasta src em um terminal e execute:
 ```
 python -m pip install -r .\requirements.txt
 ```
-Após a instalação dos pacotes com sucesso isso basta executar:
+Após a instalação dos pacotes com sucesso basta executar:
 ```
 python -m flask run
 ```
