@@ -25,10 +25,12 @@ O banco SQLite tem suas tabelas inicializadas via código ao iniciar a API, não
 
 ### Informações adicionais
 
-O projeto contém a documentação swagger disponivél na url
+O projeto contém a documentação swagger disponível na url
 
 http://localhost:5000/openapi/swagger
 
 ou 
 
 {sua_url}/openapi/swagger
+
+Existe um front end complementar ao projeto disponível em [Desenvolvimento FullStack Básico FrontEnd](https://github.com/mebur56/Desenvolvimento_FullStack_1_Front)
