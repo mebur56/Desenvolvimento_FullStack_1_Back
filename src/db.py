@@ -4,6 +4,8 @@ import sqlite3
 import os
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "agenda.db")
+
+#Criação da tabela caso não exista e carga inicial
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -46,7 +48,7 @@ def init_db():
         ))
         conn.commit()
 
-        conn.close()
+    conn.close()
 
 def get_all_schedules():
     conn = sqlite3.connect(DB_PATH)
