@@ -23,6 +23,15 @@ class ScheduleInput(BaseModel):
     )
     description: str= Field(example="Reunião de professores")
 
+class ScheduleEditInput(BaseModel):
+    id: int
+    title: str = Field(example="Reunião")
+    date: str = Field(
+        example= "2025-11-28 14:30"
+
+    )
+    description: str= Field(example="Reunião de professores")    
+
 class ScheduleIdParam(BaseModel):
     id: int
 

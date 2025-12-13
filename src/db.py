@@ -7,16 +7,46 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "agenda.db")
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
+
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS schedule (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title VARCHAR(70) NOT NULL,
-            date DATETIME NOT NULL,
-            description VARCHAR(500)
-        )
+        SELECT 1
+        FROM sqlite_master
+        WHERE type = 'table'
+          AND name = 'schedule'
+        LIMIT 1
     """)
-    conn.commit()
-    conn.close()
+
+    exists = cursor.fetchone() is not None
+    if exists is False:
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS schedule (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title VARCHAR(70) NOT NULL,
+                date DATETIME NOT NULL,
+                description VARCHAR(500)
+            )
+        """)
+
+        cursor.execute("""
+            INSERT INTO schedule (title, date, description)
+            VALUES (?, ?, ?)
+        """, (
+            "Reunião",
+            "2025-12-15 10:00",
+            "Reunião para definir as metas da próxima sprint"
+        ))
+
+        cursor.execute("""
+            INSERT INTO schedule (title, date, description)
+            VALUES (?, ?, ?)
+        """, (
+            "Entrega do relatório",
+            "2025-12-20 17:30",
+            "Entrega final do relatório mensal"
+        ))
+        conn.commit()
+
+        conn.close()
 
 def get_all_schedules():
     conn = sqlite3.connect(DB_PATH)
@@ -45,7 +75,7 @@ def search_schedule(search: str):
 
     cursor.execute("""
         SELECT * FROM schedule where Title like ?
-    """, (search,))
+    """, (f"%{search}%",))
     rows = cursor.fetchall() 
     conn.close()  
 

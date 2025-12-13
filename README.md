@@ -3,6 +3,15 @@
 ## Agenda
 API para gerenciamento de agendamentos utilizando SQLite como banco
 
+### Requisitos
+É necessário a instalação do python e o pip para funcionamento da api
+
+Python: https://www.python.org/downloads/
+
+Após instalar o python em seu ambiente basta rodar o comando 
+```
+python -m ensurepip --upgrade
+```
 
 ### Como executar
 

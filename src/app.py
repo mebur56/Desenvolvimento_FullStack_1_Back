@@ -58,7 +58,7 @@ def get_schedule():
     }
 )    
 def search_schedule(query: pydanticModels.ScheduleSearchQuery):
-    """Retorna todos os agendamentos cadastrados."""
+    """Retorna o agendamento com titulo correspondente a busca."""
     try:
         schedules = db.search_schedule(query.search)
         if not schedules:
@@ -123,7 +123,7 @@ def create_schedule(body: pydanticModels.ScheduleInput):
         500: pydanticModels.DefaultResponse
     }
 )
-def edit_schedule(body: pydanticModels.ScheduleInput):
+def edit_schedule(body: pydanticModels.ScheduleEditInput):
     """Edita um agendamento."""
     try:
         schedule = request.get_json()
